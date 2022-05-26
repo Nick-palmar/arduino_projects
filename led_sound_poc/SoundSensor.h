@@ -1,23 +1,26 @@
 #ifndef sound_sensor_h
 #define sound_sensor_h
 #include <Arduino.h>
-//#include <vector>
-//#include <queue>
+#include <Vector.h>
+#include "queue.h"
+#include "sequential_list.h"
 
 /*
  * Smart sound sensor to calculate a moving target threshold
  */
 class SoundSensor {
   private:
+    const int BUFFER_CAPACITY = 400; // make buffer capacity a constant that must be tuned before running
     int pin_;
     int val_;
-    int bufferCapacity_;
     int threshPct_; // the percentage of desired values to use for the threshold (ie. 10 for top 10%)
-//    queue<int> soundBuffer_;
-//    vector<int> soundBufferSorted_;
+    int threshIdxLower_;
+    CircularQueue soundBuffer_;
+    SequentialList soundBufferSorted_;
+//    SequentialList sList1;
 
   public:
-    SoundSensor(int pin, int bufferCapacity, int threshPct);
+    SoundSensor(int pin, int threshPct);
     int readVal();
     int getVal();
     // adds a sound to the queue and uses binary search to insert in order into the soundBufferSorted_ vector
@@ -25,8 +28,11 @@ class SoundSensor {
     bool addSound();
     // removes the first sound in the sound queue and the corresponding value in the soundBufferSorted_ vector
     void rmSound();
+    // converts threshPct to an index (upper/lower)
+    int convertThreshToIdx();
     // gets the current threshold value to produce a reaction for
-    int getThreshVal();
+    int getLowerThreshVal();
+    int getUpperThreshVal(int bufferSize);
 };
 
 #endif
