@@ -204,3 +204,20 @@ bool SequentialList::replace(unsigned int index, DataType val)
     // do not change size since it is staying the same
     return true;
 }
+
+ bool SequentialList::printList(int start_idx, int end_idx) const
+ {
+     if (start_idx < 0 || start_idx > end_idx || end_idx > size_) {
+      return false;
+     }
+     Serial.print("[");
+     // iterate through the list size and output the element
+     for (unsigned int i = start_idx; i < end_idx; i++) {
+         Serial.print(data_[i]);
+         // add a comma for elements that are not the last one in the list
+         if (i+1 != size_)
+             Serial.print(", ");
+     }
+     Serial.println("]");
+     return true;
+ }

@@ -1,6 +1,8 @@
 #ifndef SYDE223_A2_CIRCULAR_QUEUE_H
 #define SYDE223_A2_CIRCULAR_QUEUE_H
 
+#include <Arduino.h>
+
 class CircularQueue {
 public:
     // Defines the kind of data that the queue will contain.
@@ -18,8 +20,7 @@ private:
     int head_;
     // Index of the element after the last item in the circular queue.
     int tail_;
-    // Maximum number of items in the queue.
-    int capacity_;
+    
     // Current number of items in the queue.
     int size_;
 
@@ -29,12 +30,14 @@ private:
     CircularQueue operator=(const CircularQueue& other) {}
 
 public:
+    // Maximum number of items in the queue.
+    int capacity_;
     // CONSTRUCTORS/DESTRUCTOR
     // Default constructor of the class CircularQueue. It uses 16 as the
     // initial capacity of the array, and allocates the required memory
     // space for the queue. The function appropriately initializes the
     // fields of the created empty queue.
-    CircularQueue();
+//    CircularQueue();
     // Parametric constructor of the class CircularQueue. It allocates
     // the required memory space for the queue of the given capacity.
     // The function appropriately initializes the fields of the created
@@ -54,6 +57,10 @@ public:
 
     // Returns true if the queue is full and false otherwise.
     bool full() const;
+
+    // Prints the queue items sequentially and in order, from the front
+    // to the rear of the queue.
+    void printQ(int startIdx, int endIdx) const;
 
     // Returns the value at the front of the queue without removing it
     // from the queue. If the queue is empty, it returns the EMPTY_QUEUE

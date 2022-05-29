@@ -2,6 +2,7 @@
 #define SYDE223_A1_SEQUENTIAL_LIST_H
 
 //#include "test.cpp"
+#include <Arduino.h>
 
 class SequentialList {
 public:
@@ -48,7 +49,7 @@ public:
   // Returns the size of the list otherwise
   unsigned int search(DataType val) const;
   // Prints all elements in the list to the standard output.
-  // void print() const;
+   bool printList(int start_idx, int end_idx) const;
 
   // MUTATORS
   // Inserts a value into the list at a given index.

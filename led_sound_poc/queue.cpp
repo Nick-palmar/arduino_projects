@@ -4,15 +4,34 @@
 CircularQueue::QueueItem const CircularQueue::EMPTY_QUEUE = -9999;
 
 // default constructor
-CircularQueue::CircularQueue() {
-    // use capacity 16 for default constructor of circular queue
-    capacity_ = 16;
+//CircularQueue::CircularQueue() {
+//    // use capacity 16 for default constructor of circular queue
+//    capacity_ = 16;
+//
+//    items_ = new int[capacity_];
+//    size_ = 0;
+//    head_ = 0;
+//    tail_ = 0;
+//
+//}
 
-    items_ = new int[capacity_];
-    size_ = 0;
-    head_ = 0;
-    tail_ = 0;
+void CircularQueue::printQ(int startIdx, int endIdx) const {
 
+    Serial.print("[");
+    // iterate the size of the list from ifront
+    for (int i = head_ + startIdx; i < (head_ + endIdx); i++) {
+        // account for ciruclar array condition
+        int iCircle = i % capacity_;
+
+        if (i+1 != (head_ + size_)) {
+            Serial.print(items_[iCircle]);
+            Serial.print(", ");
+        }
+        else
+            Serial.print(items_[iCircle]);
+
+    }
+    Serial.println("]");
 }
 
 CircularQueue::CircularQueue(unsigned int capacity) {
